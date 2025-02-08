@@ -1,5 +1,5 @@
 # Recipe_Hub
 
-This is online recipe sharing web application.
+#### Recipe_Hub is the online recipe sharing web application.
 
 ## web page video:  [WEB PAGE ](https://)
