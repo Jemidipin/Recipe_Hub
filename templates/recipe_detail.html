@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Recipe Hub | RECIPE DETAILS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/img/core-img/logo.jpg">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+
+
+
+
+
+
+    <script type="text/javascript">
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.display = 'none';
+            }
+        }, 3000);  // 3 seconds
+    </script>
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="/static/img/core-img/salad.png" alt="">
+    </div>
+
+
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+
+
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="/static/index.html"><img src="/static/img/core-img/logo.jpg"
+                                style="height: 100px; width: 150px;" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="recipe">Recipes</a>
+                                    <li><a href="/addrecipe">Add Recipe</a></li>
+
+                                    <li>
+                                        {% if session.get("user_id") %}
+                                        <a href="{{ url_for('logout') }}">Logout</a>
+                                        {% else %}
+                                        <a href="{{ url_for('login') }}">Login</a>
+                                        {% endif %}
+                                    </li>
+
+                                </ul>
+
+                                </ul>
+
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div>
+
+
+        <!-- ##### Best Receipe Area Start ##### -->
+        <section class="best-receipe-area">
+            <div class="container">
+                <div class="row">
+                    <!-- Recipe Details Area (Left) -->
+                    <div class="col-12 col-lg-6">
+                        <div class="" style="background-color: antiquewhite;">
+                            <img src="/{{ recipe[7] }}" alt="Recipe Image">
+                            <div class="receipe-content">
+                                <a href="{{ url_for('recipe_detail', recipe_id=recipe[0]) }}">
+                                    <h3><b><u>{{ recipe[1] }}</b></u></h3>
+                                    <p style="color: black;"><strong>Cooking Time:</strong> {{ recipe[4] }} minutes</p>
+                                    <!-- Cooking Time -->
+                                    <p style="color: black;"><strong>Serving Size:</strong> {{ recipe[5] }} people</p>
+                                    <!-- Serving Size -->
+
+                                    <h4>Ingredients:</h4>
+                                    <p style="color: black;">{{ recipe[2] | replace('\n', '<br>') | safe }}</p>
+                                    <!-- Ingredients -->
+
+                                    <h4>Instructions:</h4>
+                                    <p style="color: black;">{{ recipe[3] | replace('\n', '<br>') | safe }}</p>
+                                    <!-- Instructions -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Area (Right) -->
+                    <div class="col-12 col-lg-6">
+                        <div class="single-best-receipe-area mb-30">
+                            <!-- Add Comment Section -->
+                            <form method="POST" style="width: 100%;">
+                                <div class="form-group">
+                                    <label for="comment">Add a Comment:</label>
+                                    <textarea name="comment" id="comment" class="form-control" rows="3"
+                                        required></textarea>
+                                </div>
+
+                                <!-- Only enable the button if the user is logged in -->
+                                {% if not session.get('user_id') %}
+                                <button id="postCommentBtn" class="btn btn-primary"
+                                    onclick="window.location.href='{{ url_for('login') }}'; return false;">
+                                    Post Comment
+                                </button>
+
+
+                                {% else %}
+                                <button id="postCommentBtn" type="submit" class="btn btn-primary">
+                                    Post Comment
+                                </button>
+                                {% endif %}
+
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                {% for category, message in messages %}
+                                <div id="flash-message" class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                            </form>
+
+
+                            <br><br>
+
+                            <h4>Comments:</h4>
+                            <table border="1">
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Comments</th>
+                                    <th>Date Posted</th>
+                                </tr>
+                                {% for comment in comments %}
+                                <tr>
+                                    <div class="comment mb-3">
+                                        <td>{{ loop.index }}</td> <!-- Serial number -->
+                                        <td><strong>{{ comment[3] }}</strong></td> <!-- Comment text -->
+                                        <td>{{ comment[4] }}</td> <!-- Date posted -->
+                                    </div>
+                                </tr>
+                                {% else %}
+                                <p>No comments yet. Be the first to comment!</p>
+                                {% endfor %}
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Recipes Area (Below) -->
+                <div class="col-12 col-sm-6 col-lg-4">
+
+
+                </div>
+
+
+            </div>
+        </section>
+        <section>
+            <CENTER>
+                <h4>More Recipes</h4>
+            </CENTER>
+            <div class="single-small-receipe-area d-flex">
+                {% for rec in allrecipe %}
+                &nbsp;&nbsp;&nbsp;
+                <div>
+                    <!-- Receipe Thumb -->
+                    <a href="{{ url_for('recipe_detail', recipe_id=rec[0]) }}">
+                        <div>
+
+                            <img src="/{{ rec[7] }}" alt="{{ rec[1] }}" style="width: 200px; height: auto;">
+                        </div>
+                        <!-- Receipe Content -->
+                        <div style="width: 200px;">
+                            <h6>{{ rec[1] }}</h6>
+
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- ##### Best Receipe Area End ##### -->
+
+
+
+
+        <script src="/static/js/jquery/jquery-2.2.4.min.js"></script>
+        <!-- Popper js -->
+        <script src="/static/js/bootstrap/popper.min.js"></script>
+        <!-- Bootstrap js -->
+        <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+        <!-- All Plugins js -->
+        <script src="/static/js/plugins/plugins.js"></script>
+        <!-- Active js -->
+        <script src="/static/js/active.js"></script>
+</body>
+
+</html>

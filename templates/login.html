@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>RECIPE HUB | LOGIN</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/img/core-img/logo.jpg">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand" href="/static/index.html"><img src="/static/img/core-img/logo.jpg" style="width: 175px;"
+                                alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li ><a href="/">Home</a></li>
+                                    <li><a href="recipe">Recipes</a>
+                                           
+                                            <li><a href="addrecipe">Add Recipe</a></li>
+                                            
+                                        
+                                        <li class="active">
+                                            {% if session.get("user_id") %}
+                                                <a href="{{ url_for('logout') }}">Logout</a>
+                                            {% else %}
+                                                <a href="{{ url_for('login') }}">Login</a>
+                                            {% endif %}
+                                        </li>
+                                        
+                                </ul>
+
+                                
+
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/breadcumb4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>LOGIN</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+     <br>
+
+    <section>
+        <div class="row">
+            <div class="col-12 col-lg-4"></div>
+
+            <!-- Newsletter Area -->
+            <div class="col-12 col-lg-4" >
+                <div class="newsletter-form bg-img bg-overlay"
+                    style="background-image: url(/static/img/bg-img/bg1.jpg);">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+                    <form action="{{ url_for('login', next=request.referrer) }}" method="post">
+                        <div class="row">
+                            <div class="col-12 col-lg-max">
+                                <label for="email" style="color: white; font-size: 15px;">Email:</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" required>
+                            </div>
+                            <div class="col-12 col-lg-max">
+                                <label for="password" style="color: white; font-size: 15px;">Password:</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn delicious-btn mt-30" type="submit">Login</button>
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <p style="color: white; font-size: 14px;">Don't have an account? 
+                                    <a href="/register" style="color: #ffcc00; text-decoration: none;">Sign up</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="/static/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/static/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/static/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="/static/js/active.js"></script>
+    <!-- Google Maps -->
+    <script src="/static/https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>
+    <script src="/static/js/google-map/map-active.js"></script>
+</body>
+
+</html>
