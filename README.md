@@ -51,8 +51,7 @@ Contributions are welcome! Feel free to fork the repository and submit a pull re
 This project is licensed under the MIT License.
 
 ## Contact
-For any queries, reach out via jyothydas11@gmail.com.
-
+For any queries, reach out via jemijemima2001@gmail.com
 
 
 ## web page video:  [WEB PAGE ](https://drive.google.com/drive/folders/1OqmgEFFJ5Mqrn_WuUuJNtPgX4JZk5R0C)
